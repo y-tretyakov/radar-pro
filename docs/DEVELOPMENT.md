@@ -2,6 +2,16 @@
 
 Local setup for the Radar Pro monorepo (Phase 0 — foundation through v0.1.2).
 
+## Process rules (agents & contributors)
+
+Durable branching, release, CHANGELOG, and agent-role rules live in **[`AGENTS.md`](../AGENTS.md)** at the repo root.  
+Read that file before opening PRs or starting a phase stage. Summary:
+
+- **`main`** — protected releases only (full phase complete + version bump + tag)
+- **`dev`** — integration branch; stage work merges here via PR
+- Stage branches: `feat/phase-N/<stage>-<short-slug>` (from `dev`)
+- Always update [`CHANGELOG.md`](../CHANGELOG.md) (Unreleased during work; version section on release)
+
 ## Prerequisites
 
 - **Node.js 22+** (see `.nvmrc`)
