@@ -1,0 +1,11 @@
+name = "radar-pro-worker"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Future: cron triggers and pipeline orchestration (Phase 0.2+).
+# [[triggers]]
+# crons = ["0 * * * *"]
+
+[vars]
+ENVIRONMENT = "development"

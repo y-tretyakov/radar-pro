@@ -1,0 +1,13 @@
+{
+  "name": "@radar-pro/typescript-config",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "exports": {
+    "./base.json": "./base.json",
+    "./library.json": "./library.json",
+    "./react-library.json": "./react-library.json",
+    "./vite.json": "./vite.json",
+    "./worker.json": "./worker.json"
+  }
+}

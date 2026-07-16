@@ -1,0 +1,10 @@
+name = "radar-pro-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Local-friendly defaults — no real account IDs required for Phase 0.1.
+# Bindings (D1, R2, KV) will be added in Phase 0.2.
+
+[vars]
+ENVIRONMENT = "development"
