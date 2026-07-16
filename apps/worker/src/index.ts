@@ -1,12 +1,18 @@
 /**
  * @radar-pro/worker — Cloudflare Worker shell for future cron / pipeline jobs.
- * Phase 0.1: minimal fetch handler only.
+ * Phase 0.2: health handler + D1/R2/KV bindings (pipeline not configured yet).
  */
 
 import { getPackageName as getCoreName } from '@radar-pro/core';
 
 export interface Env {
   ENVIRONMENT?: string;
+  /** Entity Store (D1) */
+  DB?: D1Database;
+  /** Immutable journal (R2) */
+  JOURNAL?: R2Bucket;
+  /** Cache / coordination (KV) */
+  KV?: KVNamespace;
 }
 
 export default {
@@ -17,7 +23,7 @@ export default {
       return Response.json({
         status: 'ok',
         service: '@radar-pro/worker',
-        version: '0.1.0',
+        version: '0.1.2',
         environment: env.ENVIRONMENT ?? 'unknown',
         core: getCoreName(),
         message: 'Pipeline worker shell — cron/pipeline not yet configured',

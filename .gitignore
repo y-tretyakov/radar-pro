@@ -6,7 +6,6 @@ node_modules
 dist
 build
 .turbo
-.wrangler
 .vite
 *.tsbuildinfo
 
@@ -37,7 +36,7 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Cloudflare
+# Cloudflare / Miniflare (local D1, wrangler state)
 .mf
 .wrangler
 

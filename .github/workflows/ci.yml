@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   quality:
-    name: Install · Typecheck · Lint · Test · Build
+    name: Install · Migrate · Typecheck · Lint · Test · Build
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -33,6 +33,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Apply D1 migrations (local)
+        # No Cloudflare account or secrets required
+        run: pnpm db:migrate:local
 
       - name: Typecheck
         run: pnpm typecheck

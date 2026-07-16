@@ -1,10 +1,76 @@
+# Radar Pro API — Cloudflare Worker (Hono)
+# Local-safe placeholders only. Do not create remote CF resources without explicit ops.
+# Apply D1 migrations locally: pnpm db:migrate:local
+
 name = "radar-pro-api"
 main = "src/index.ts"
-compatibility_date = "2024-12-01"
+compatibility_date = "2026-01-15"
 compatibility_flags = ["nodejs_compat"]
-
-# Local-friendly defaults — no real account IDs required for Phase 0.1.
-# Bindings (D1, R2, KV) will be added in Phase 0.2.
 
 [vars]
 ENVIRONMENT = "development"
+
+# --- D1 (Entity Store) ---
+# Shared SQL migrations live in packages/database/migrations
+[[d1_databases]]
+binding = "DB"
+database_name = "radar-pro-local"
+database_id = "00000000-0000-4000-8000-000000000001"
+migrations_dir = "../../packages/database/migrations"
+
+# --- R2 (Journal / immutable event store) ---
+[[r2_buckets]]
+binding = "JOURNAL"
+bucket_name = "radar-pro-journal-local"
+
+# --- KV (cache / ephemeral coordination) ---
+[[kv_namespaces]]
+binding = "KV"
+id = "00000000-0000-4000-8000-000000000002"
+preview_id = "00000000-0000-4000-8000-000000000003"
+
+# =============================================================================
+# Preview (staging) — replace database_id / KV id when real CF resources exist
+# Deploy: wrangler deploy --env preview
+# Migrate (remote, requires auth): wrangler d1 migrations apply radar-pro-preview --env preview
+# =============================================================================
+[env.preview]
+name = "radar-pro-api-preview"
+vars = { ENVIRONMENT = "preview" }
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "radar-pro-preview"
+database_id = "00000000-0000-4000-8000-000000000011"
+migrations_dir = "../../packages/database/migrations"
+
+[[env.preview.r2_buckets]]
+binding = "JOURNAL"
+bucket_name = "radar-pro-journal-preview"
+
+[[env.preview.kv_namespaces]]
+binding = "KV"
+id = "00000000-0000-4000-8000-000000000012"
+
+# =============================================================================
+# Production — replace IDs before any real deploy
+# Deploy: wrangler deploy --env production
+# Migrate (remote, requires auth): wrangler d1 migrations apply radar-pro-production --env production
+# =============================================================================
+[env.production]
+name = "radar-pro-api-production"
+vars = { ENVIRONMENT = "production" }
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "radar-pro-production"
+database_id = "00000000-0000-4000-8000-000000000021"
+migrations_dir = "../../packages/database/migrations"
+
+[[env.production.r2_buckets]]
+binding = "JOURNAL"
+bucket_name = "radar-pro-journal-production"
+
+[[env.production.kv_namespaces]]
+binding = "KV"
+id = "00000000-0000-4000-8000-000000000022"

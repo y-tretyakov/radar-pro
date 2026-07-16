@@ -1,17 +1,35 @@
 /**
- * @radar-pro/database — schema and migrations home.
- * Phase 0.1: placeholder only — no full D1 schema yet.
+ * @radar-pro/database — D1 schema types and migration catalog.
+ * SQL migrations: packages/database/migrations (applied via wrangler --local).
  */
 
-export const DATABASE_PACKAGE_VERSION = '0.1.0' as const;
+export const DATABASE_PACKAGE_VERSION = '0.1.2' as const;
 
 export function getPackageName(): string {
   return '@radar-pro/database';
 }
 
-/** Placeholder migration descriptor for future D1 migrations. */
-export interface MigrationPlaceholder {
+export {
+  CORE_TABLES,
+  type CoreTableName,
+  type DatasetRow,
+  type FeatureDefinitionRow,
+  type OwnerRow,
+  type OwnerType,
+  type RepositoryRow,
+} from './types.js';
+
+/** Descriptor for a SQL migration file under migrations/. */
+export interface MigrationDescriptor {
+  /** Wrangler migration id / filename without path, e.g. 0001_initial_schema.sql */
   id: string;
   name: string;
-  applied: boolean;
 }
+
+/**
+ * Catalog of shipped migrations (must match files in migrations/).
+ * Used for smoke tests; wrangler applies the SQL files themselves.
+ */
+export const MIGRATIONS: readonly MigrationDescriptor[] = [
+  { id: '0001_initial_schema.sql', name: 'initial_schema' },
+] as const;

@@ -5,7 +5,7 @@
 
 import { getPackageName as getCoreName } from '@radar-pro/core';
 
-export const ENGINE_PACKAGE_VERSION = '0.1.0' as const;
+export const ENGINE_PACKAGE_VERSION = '0.1.2' as const;
 
 export function getPackageName(): string {
   return '@radar-pro/engine';

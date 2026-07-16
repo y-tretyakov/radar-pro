@@ -1,6 +1,6 @@
 # Development
 
-Local setup for the Radar Pro monorepo (Phase 0.1 skeleton).
+Local setup for the Radar Pro monorepo (Phase 0 — foundation through v0.1.2).
 
 ## Prerequisites
 
@@ -23,6 +23,8 @@ pnpm install
 | `pnpm lint` | ESLint across the workspace |
 | `pnpm test` | Vitest smoke tests |
 | `pnpm format` | Prettier write |
+| `pnpm db:migrate:local` | Apply D1 migrations to local SQLite (no CF login) |
+| `pnpm db:migrations:list:local` | List local D1 migration status |
 
 ### Per-app
 
@@ -37,28 +39,99 @@ pnpm --filter @radar-pro/api dev
 pnpm --filter @radar-pro/worker dev
 ```
 
+## Frontend (`apps/web`) — Phase 0.3 / v0.1.2
+
+Stack: **React 19 + Vite**, **TanStack Query** (server state), **Zustand** (client UI state), **nuqs** (URL state), **React Router**, **Zod**, **React Hook Form** (installed for later forms).
+
+State rules (see `docs/architecture/22_STATE_MANAGEMENT_STRATEGY.md`):
+
+- Server / fetch data → TanStack Query only (**never** Zustand)
+- Theme, sidebar, layout drafts, prefs → Zustand under `apps/web/src/stores/`
+- Shareable filters → URL via nuqs when useful
+
+Routes (stubs only — no GitHub API):
+
+| Path | Page |
+| --- | --- |
+| `/` | Dashboard (theme / sidebar / layout demos) |
+| `/repositories` | Repository list stub |
+| `/repositories/:id` | Repository detail stub |
+
+Shared chrome: `@radar-pro/ui` (`Button`, `Card`, `AppShell`). Host styles: `apps/web/src/styles.css`.
+
+```bash
+pnpm --filter @radar-pro/ui build   # after UI package changes
+pnpm --filter @radar-pro/web dev
+pnpm --filter @radar-pro/web test
+```
+
+## Local D1 migrations (Phase 0.2)
+
+SQL migrations live in **`packages/database/migrations`** and are shared by `apps/api` and `apps/worker` via `migrations_dir` in each `wrangler.toml`.
+
+**Always use `--local`** until remote Cloudflare resources are intentionally provisioned.
+
+```bash
+# Apply pending migrations (recommended root script)
+pnpm db:migrate:local
+
+# Equivalent via API package
+pnpm --filter @radar-pro/api run db:migrate:local
+
+# List status
+pnpm db:migrations:list:local
+
+# Smoke: list user tables after migrate
+pnpm --filter @radar-pro/api exec wrangler d1 execute radar-pro-local --local --command \
+  "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name NOT LIKE '_cf_%' ORDER BY name;"
+```
+
+Wrangler **v4** is used. Local state is under `apps/*/.wrangler` (gitignored). No `CLOUDFLARE_API_TOKEN` is required for local migrate/execute.
+
+### Environments (preview / production)
+
+`apps/api/wrangler.toml` and `apps/worker/wrangler.toml` define:
+
+| Env | Purpose | Notes |
+| --- | --- | --- |
+| default (top-level) | Local / default worker name | `radar-pro-local` D1, `radar-pro-journal-local` R2 |
+| `preview` | Staging placeholders | IDs are placeholders — replace before real deploy |
+| `production` | Production placeholders | Same — no remote create in Phase 0.2 |
+
+Remote migrate (not used in Phase 0.2 CI) would look like:
+
+```bash
+# Requires CF auth + real database_id — do not run until ops provisions resources
+# wrangler d1 migrations apply radar-pro-preview --env preview
+# wrangler d1 migrations apply radar-pro-production --env production
+```
+
 ## Structure
 
 ```
 apps/
-  web/       React 19 + Vite dashboard shell
-  api/       Hono on Cloudflare Workers (GET /health)
-  worker/    Worker shell for future cron/pipeline
+  web/       React 19 + Vite dashboard (Query + Zustand + router)
+  api/       Hono on Cloudflare Workers (GET /health) + D1/R2/KV
+  worker/    Worker shell for future cron/pipeline + same bindings
 packages/
   core/              Domain types / pure logic
   engine/            DAG / features / metrics (placeholder)
   connectors/        External connectors (placeholder)
-  database/          Schema / migrations home (placeholder)
+  database/          D1 types + migrations/
   manifests/         Plugin manifests (placeholder)
-  ui/                Shared UI components
+  ui/                Shared UI (Button, Card, AppShell, …)
   typescript-config/ Shared TSConfig bases
   eslint-config/     Shared ESLint flat configs
 ```
 
 ## Environment
 
-Copy `.env.example` for future Cloudflare / API vars. Phase 0.1 does not require real account bindings.
+Copy `.env.example` for Cloudflare / API vars. Local D1/R2/KV use placeholders in `wrangler.toml`; account IDs are only needed for remote deploy.
 
 ## CI
 
-GitHub Actions (`.github/workflows/ci.yml`) runs install → typecheck → lint → test → build on push/PR.
+GitHub Actions (`.github/workflows/ci.yml`) runs:
+
+install → **local D1 migrate** → typecheck → lint → test → build
+
+The migrate step uses `wrangler d1 migrations apply … --local` and needs no Cloudflare secrets.

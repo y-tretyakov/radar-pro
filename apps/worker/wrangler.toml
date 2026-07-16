@@ -1,11 +1,75 @@
+# Radar Pro Worker — pipeline / cron shell
+# Local-safe placeholders only. Do not create remote CF resources without explicit ops.
+# Apply D1 migrations locally via API config or: pnpm db:migrate:local
+
 name = "radar-pro-worker"
 main = "src/index.ts"
-compatibility_date = "2024-12-01"
+compatibility_date = "2026-01-15"
 compatibility_flags = ["nodejs_compat"]
 
-# Future: cron triggers and pipeline orchestration (Phase 0.2+).
+# Future: cron triggers and pipeline orchestration (Phase 1+)
 # [[triggers]]
 # crons = ["0 * * * *"]
 
 [vars]
 ENVIRONMENT = "development"
+
+# --- D1 (Entity Store) — same logical DB as API ---
+[[d1_databases]]
+binding = "DB"
+database_name = "radar-pro-local"
+database_id = "00000000-0000-4000-8000-000000000001"
+migrations_dir = "../../packages/database/migrations"
+
+# --- R2 (Journal) ---
+[[r2_buckets]]
+binding = "JOURNAL"
+bucket_name = "radar-pro-journal-local"
+
+# --- KV ---
+[[kv_namespaces]]
+binding = "KV"
+id = "00000000-0000-4000-8000-000000000002"
+preview_id = "00000000-0000-4000-8000-000000000003"
+
+# =============================================================================
+# Preview (staging) — replace IDs when real CF resources exist
+# =============================================================================
+[env.preview]
+name = "radar-pro-worker-preview"
+vars = { ENVIRONMENT = "preview" }
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "radar-pro-preview"
+database_id = "00000000-0000-4000-8000-000000000011"
+migrations_dir = "../../packages/database/migrations"
+
+[[env.preview.r2_buckets]]
+binding = "JOURNAL"
+bucket_name = "radar-pro-journal-preview"
+
+[[env.preview.kv_namespaces]]
+binding = "KV"
+id = "00000000-0000-4000-8000-000000000012"
+
+# =============================================================================
+# Production — replace IDs before any real deploy
+# =============================================================================
+[env.production]
+name = "radar-pro-worker-production"
+vars = { ENVIRONMENT = "production" }
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "radar-pro-production"
+database_id = "00000000-0000-4000-8000-000000000021"
+migrations_dir = "../../packages/database/migrations"
+
+[[env.production.r2_buckets]]
+binding = "JOURNAL"
+bucket_name = "radar-pro-journal-production"
+
+[[env.production.kv_namespaces]]
+binding = "KV"
+id = "00000000-0000-4000-8000-000000000022"

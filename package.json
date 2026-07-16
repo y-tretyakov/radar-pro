@@ -1,6 +1,6 @@
 {
   "name": "radar-pro",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": true,
   "description": "Radar Pro — discover promising open-source projects before they trend",
   "packageManager": "pnpm@9.15.0",
@@ -15,6 +15,8 @@
     "typecheck": "turbo run typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,yml,yaml,css,html}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,yml,yaml,css,html}\"",
+    "db:migrate:local": "pnpm --filter @radar-pro/api run db:migrate:local",
+    "db:migrations:list:local": "pnpm --filter @radar-pro/api run db:migrations:list:local",
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
