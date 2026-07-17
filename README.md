@@ -6,6 +6,10 @@
 
 > *GitHub уже давно перестал быть просто хранилищем кода. Это огромная экосистема, в которой ежедневно рождаются тысячи новых проектов. Но среди миллионов репозиториев лишь единицы становятся новыми Docker, Neovim, Bun, Axum или Ollama. Главный вопрос — как найти их раньше остальных?*
 
+<p align="center">
+  <img src="docs/assets/slides/slide_1.webp" alt="Radar Pro Vision" width="100%">
+</p>
+
 Именно эту задачу решает **Radar Pro**.
 
 Это не очередной клиент для GitHub и не красивая оболочка над GitHub Search API. Это аналитическая платформа, цель которой — обнаруживать перспективные Open Source проекты ещё до того, как они окажутся в трендах.
@@ -32,6 +36,10 @@
 * анализ коммитов;
 * проверка релизов;
 * сравнение нескольких проектов.
+
+<p align="center">
+  <img src="docs/assets/slides/slide_2.webp" alt="The Problem" width="100%">
+</p>
 
 Через полчаса становится понятно, что GitHub отлично отвечает на вопрос:
 
@@ -117,17 +125,13 @@ $$\text{Star Velocity} = \frac{\text{New Stars}}{\text{Days}}$$
 
 Например:
 
-```
-210 stars
-
-за 7 дней
-
-=
-
-30 stars/day
-```
+$$\text{Star Velocity} = \frac{210 \text{ stars}}{7 \text{ days}} = 30 \text{ stars/day}$$
 
 Это позволяет сравнивать проекты разных размеров.
+
+<p align="center">
+  <img src="docs/assets/slides/slide_3.webp" alt="Velocity" width="100%">
+</p>
 
 ---
 
@@ -167,6 +171,10 @@ $$\text{Acceleration} = \frac{\text{Current Growth}}{\text{Previous Growth}}$$
 
 Если коэффициент значительно превышает единицу, это говорит о появлении вирусного эффекта.
 
+<p align="center">
+  <img src="docs/assets/slides/slide_4.webp" alt="Acceleration" width="100%">
+</p>
+
 Именно такие проекты получают статус:
 
 * Rising Star
@@ -205,6 +213,10 @@ $$\text{Acceleration} = \frac{\text{Current Growth}}{\text{Previous Growth}}$$
 
 Даже если stars у второго проекта заметно больше.
 
+<p align="center">
+  <img src="docs/assets/slides/slide_5.webp" alt="Momentum" width="100%">
+</p>
+
 ---
 
 # Community
@@ -226,6 +238,10 @@ Open Source живёт сообществом.
 * активность обсуждений.
 
 Большое количество независимых участников — сильный сигнал того, что проект становится частью экосистемы.
+
+<p align="center">
+  <img src="docs/assets/slides/slide_6.webp" alt="Community" width="100%">
+</p>
 
 ---
 
@@ -281,6 +297,10 @@ Radar Pro **не штрафует** проекты на Java, C# или Python.
 
 ---
 
+<p align="center">
+  <img src="docs/assets/slides/slide_7.webp" alt="Architecture" width="100%">
+</p>
+
 # Radar Score
 
 Все показатели объединяются в единую оценку.
@@ -332,6 +352,10 @@ Radar Score — это не оценка качества кода.
 Radar Pro идёт противоположным путём.
 
 Каждая рекомендация сопровождается набором сигналов.
+
+<p align="center">
+  <img src="docs/assets/slides/slide_8.webp" alt="Explainability" width="100%">
+</p>
 
 Например:
 
@@ -395,11 +419,44 @@ Radar Pro становится местом исследования.
 
 ---
 
+# Development
+
+Monorepo (pnpm + Turborepo). Requires **Node.js 22+** and **pnpm 9+**.
+
+<p align="center">
+  <img src="docs/assets/slides/slide_9.webp" alt="Cloudflare Edge" width="100%">
+</p>
+
+```bash
+pnpm install
+
+# Quality gates
+pnpm typecheck
+pnpm lint
+pnpm test
+pnpm build
+
+# Local dev (all apps via Turbo)
+pnpm dev
+
+# Or per-app:
+pnpm --filter @radar-pro/web dev      # http://localhost:5173
+pnpm --filter @radar-pro/api dev      # http://localhost:8787
+pnpm --filter @radar-pro/worker dev
+```
+
+See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for structure and environment notes.
+
+
 # Планы развития
 
 Текущая версия ориентирована на анализ репозиториев в реальном времени.
 
 В дальнейшем проект планируется развивать в сторону полноценной аналитической платформы.
+
+<p align="center">
+  <img src="docs/assets/slides/slide_10.webp" alt="Roadmap Part 1" width="100%">
+</p>
 
 Среди возможных направлений:
 
@@ -423,6 +480,10 @@ Radar Pro становится местом исследования.
 
 ---
 
+<p align="center">
+  <img src="docs/assets/slides/slide_11.webp" alt="Roadmap Part 2" width="100%">
+</p>
+
 # Вместо заключения
 
 Open Source развивается невероятно быстро. Каждый день появляются сотни новых библиотек, инструментов и фреймворков. Большинство из них так и остаются незамеченными. Некоторые меняют целые отрасли.
@@ -436,27 +497,3 @@ Open Source развивается невероятно быстро. Кажды
 А как инструмент, который помогает увидеть будущее Open Source немного раньше остальных.
 
 ---
-
-# Development
-
-Monorepo (pnpm + Turborepo). Requires **Node.js 22+** and **pnpm 9+**.
-
-```bash
-pnpm install
-
-# Quality gates
-pnpm typecheck
-pnpm lint
-pnpm test
-pnpm build
-
-# Local dev (all apps via Turbo)
-pnpm dev
-
-# Or per-app:
-pnpm --filter @radar-pro/web dev      # http://localhost:5173
-pnpm --filter @radar-pro/api dev      # http://localhost:8787
-pnpm --filter @radar-pro/worker dev
-```
-
-See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for structure and environment notes.
