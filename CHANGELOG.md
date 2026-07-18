@@ -7,14 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-17
+
+Phase 1 stage 1.1 — Data Layer. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_GITHUB_MVP.md).
+
 ### Added
 
-- Process docs: `AGENTS.md` (branching model, CHANGELOG rules, agent roles)
-- Pointer from `docs/DEVELOPMENT.md` to durable agent process rules
+- **GitHub Connector:** `GitHubClient` class with Octokit-based REST client (`@radar-pro/connectors/src/github/`)
+  - Repository, owner, issues, PRs, releases, contributors, search API methods
+  - Typed responses and pagination support
+- **Journal system:** Immutable R2 journal store (`@radar-pro/connectors/src/journal/`)
+  - Write raw API responses to R2 with structured key scheme
+  - Read, list, and replay journal entries
+- **Normalizer:** GitHub API response to DB row type converter (`@radar-pro/connectors/src/normalizer/`)
+  - Owner, repository, issue, PR, release, contributor normalization
+  - Create and update variants for upsert operations
+- **Entity Store:** D1 CRUD operations (`@radar-pro/database/src/store/`)
+  - Owners, repositories, issues, PRs, releases, contributors, datasets, journal entries
+  - Search repositories with dynamic filters, sorting, and pagination
+- **Database migration:** `0002_journal_and_details.sql` — issues, pull_requests, releases, contributors, journal_entries tables
+- **Domain types:** GitHub API response types and normalized entity types in `@radar-pro/core`
 
 ### Changed
 
 - Optimized presentation slides from PNG to WebP (93% size reduction) and updated README references
+- Workspace package versions bumped to `0.2.0` (core, database, connectors, root)
 
 ## [0.1.2] - 2026-07-17
 
@@ -63,7 +80,8 @@ Phase 0 stage **0.1** — monorepo skeleton.
 - GitHub Actions CI (`.github/workflows/ci.yml`)
 - Root tooling scripts (`dev`, `build`, `typecheck`, `lint`, `test`, `format`)
 
-[Unreleased]: https://github.com/y-tretyakov/radar-pro/compare/v0.1.2...HEAD
-[0.1.2]: https://github.com/y-tretyakov/radar-pro/releases/tag/v0.1.2
-[0.1.1]: https://github.com/y-tretyakov/radar-pro/compare/v0.1.0...v0.1.2
+[Unreleased]: https://github.com/y-tretyakov/radar-pro/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/y-tretyakov/radar-pro/releases/tag/v0.2.0
+[0.1.2]: https://github.com/y-tretyakov/radar-pro/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/y-tretyakov/radar-pro/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/y-tretyakov/radar-pro/releases/tag/v0.1.0
