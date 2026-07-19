@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Phase 1 stage 1.3 — Metric Engine + Simple DAG. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_GITHUB_MVP.md).
 
+### Fixed
+
+- Give API and worker distinct Wrangler dev ports (`8787`/`9229` vs `8788`/`9230`) so `pnpm dev` does not fail with "Address already in use" on the shared inspector port
+
 ### Added
 
 - **Metric Engine (`@radar-pro/engine`):** Metric types, registry, and two built-in composite scoring metrics
