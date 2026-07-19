@@ -42,12 +42,14 @@ pnpm install
 # Web (Vite) — http://localhost:5173
 pnpm --filter @radar-pro/web dev
 
-# API (Hono + Wrangler) — http://localhost:8787
+# API (Hono + Wrangler) — http://localhost:8787 (inspector 9229)
 pnpm --filter @radar-pro/api dev
 
-# Worker (Wrangler shell)
+# Worker (Wrangler shell) — http://localhost:8788 (inspector 9230)
 pnpm --filter @radar-pro/worker dev
 ```
+
+`pnpm dev` runs all three in parallel via Turbo. API and worker use **different HTTP and inspector ports** so they do not collide on Wrangler’s defaults (`8787` / `9229`).
 
 ## Frontend (`apps/web`) — Phase 0.3 / v0.1.2
 

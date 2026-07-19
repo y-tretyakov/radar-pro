@@ -23,7 +23,7 @@ export default {
       return Response.json({
         status: 'ok',
         service: '@radar-pro/worker',
-        version: '0.1.2',
+        version: '0.2.1',
         environment: env.ENVIRONMENT ?? 'unknown',
         core: getCoreName(),
         message: 'Pipeline worker shell — cron/pipeline not yet configured',

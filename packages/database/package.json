@@ -1,6 +1,6 @@
 {
   "name": "@radar-pro/database",
-  "version": "0.1.2",
+  "version": "0.2.2",
   "private": true,
   "type": "module",
   "exports": {
@@ -23,6 +23,7 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260710.1",
     "@radar-pro/eslint-config": "workspace:*",
     "@radar-pro/typescript-config": "workspace:*",
     "eslint": "^9.17.0",
