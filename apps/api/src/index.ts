@@ -24,7 +24,7 @@ app.get('/health', (c) => {
   return c.json({
     status: 'ok',
     service: '@radar-pro/api',
-    version: '0.1.2',
+    version: '0.2.0',
     environment: c.env.ENVIRONMENT ?? 'unknown',
     core: getCoreName(),
     timestamp: new Date().toISOString(),
@@ -34,7 +34,7 @@ app.get('/health', (c) => {
 app.get('/', (c) => {
   return c.json({
     name: 'Radar Pro API',
-    version: '0.1.2',
+    version: '0.2.0',
     docs: '/health',
   });
 });

@@ -7,13 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
+## [0.2.0] - 2026-07-19
 
-- Give API and worker distinct Wrangler dev ports (`8787`/`9229` vs `8788`/`9230`) so `pnpm dev` does not fail with "Address already in use" on the shared inspector port
-
-## [0.2.0] - 2026-07-17
-
-Phase 1 stage 1.1 — Data Layer. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_GITHUB_MVP.md).
+Phase 1 stage 1.1 — Data Layer. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_GITHUB_MVP.md) and [docs/PHASE_1_1_COMPLETION.md](docs/PHASE_1_1_COMPLETION.md).
 
 ### Added
 
@@ -35,7 +31,11 @@ Phase 1 stage 1.1 — Data Layer. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_
 ### Changed
 
 - Optimized presentation slides from PNG to WebP (93% size reduction) and updated README references
-- Workspace package versions bumped to `0.2.0` (core, database, connectors, root)
+- All workspace package versions and API/worker health responses aligned to **0.2.0**
+
+### Fixed
+
+- Give API and worker distinct Wrangler dev ports (`8787`/`9229` vs `8788`/`9230`) so `pnpm dev` does not fail with "Address already in use" on the shared inspector port
 
 ## [0.1.2] - 2026-07-17
 
@@ -85,7 +85,7 @@ Phase 0 stage **0.1** — monorepo skeleton.
 - Root tooling scripts (`dev`, `build`, `typecheck`, `lint`, `test`, `format`)
 
 [Unreleased]: https://github.com/y-tretyakov/radar-pro/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/y-tretyakov/radar-pro/releases/tag/v0.2.0
+[0.2.0]: https://github.com/y-tretyakov/radar-pro/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/y-tretyakov/radar-pro/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/y-tretyakov/radar-pro/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/y-tretyakov/radar-pro/releases/tag/v0.1.0

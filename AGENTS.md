@@ -6,7 +6,7 @@ These rules are permanent unless the CEO explicitly revises them.
 Related:
 
 - Development setup: [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md)
-- Phase completion: [`docs/PHASE_0_COMPLETION.md`](docs/PHASE_0_COMPLETION.md)
+- Phase completion: [`docs/PHASE_0_COMPLETION.md`](docs/PHASE_0_COMPLETION.md), [`docs/PHASE_1_1_COMPLETION.md`](docs/PHASE_1_1_COMPLETION.md)
 - Roadmap: [`docs/Roadmap.md`](docs/Roadmap.md)
 - Changelog: [`CHANGELOG.md`](CHANGELOG.md)
 

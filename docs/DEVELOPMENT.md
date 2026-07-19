@@ -1,6 +1,6 @@
 # Development
 
-Local setup for the Radar Pro monorepo (Phase 0 — foundation through v0.1.2).
+Local setup for the Radar Pro monorepo (through Phase 1.1 / v0.2.0 data layer).
 
 ## Process rules (agents & contributors)
 
@@ -51,7 +51,7 @@ pnpm --filter @radar-pro/worker dev
 
 `pnpm dev` runs all three in parallel via Turbo. API and worker use **different HTTP and inspector ports** so they do not collide on Wrangler’s defaults (`8787` / `9229`).
 
-## Frontend (`apps/web`) — Phase 0.3 / v0.1.2
+## Frontend (`apps/web`) — shell (Phase 0.3; product UI in later Phase 1 stages)
 
 Stack: **React 19 + Vite**, **TanStack Query** (server state), **Zustand** (client UI state), **nuqs** (URL state), **React Router**, **Zod**, **React Hook Form** (installed for later forms).
 

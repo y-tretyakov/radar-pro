@@ -32,7 +32,7 @@ export function DashboardPage() {
       <header className="rp-page__header">
         <h1 className="rp-page__title">Radar Pro</h1>
         <p className="rp-page__subtitle">
-          Frontend foundations (v0.1.2) — client state via Zustand, server state via TanStack
+          Data layer foundations (v0.2.0) — client state via Zustand, server state via TanStack
           Query, URL state via nuqs.
         </p>
       </header>
