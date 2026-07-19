@@ -219,7 +219,13 @@ importers:
       '@radar-pro/core':
         specifier: workspace:*
         version: link:../core
+      '@radar-pro/database':
+        specifier: workspace:*
+        version: link:../database
     devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^5.20260710.1
+        version: 5.20260716.1
       '@radar-pro/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
