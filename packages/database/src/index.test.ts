@@ -18,7 +18,7 @@ describe('@radar-pro/database', () => {
     expect(DATABASE_PACKAGE_VERSION).toBe('0.2.1');
   });
 
-  it('lists all nine core tables', () => {
+  it('lists all core tables', () => {
     expect([...CORE_TABLES]).toEqual([
       'owners',
       'datasets',
@@ -29,11 +29,12 @@ describe('@radar-pro/database', () => {
       'releases',
       'contributors',
       'journal_entries',
+      'feature_values',
     ]);
   });
 
   it('ships SQL migration files for each catalog entry', () => {
-    expect(MIGRATIONS.length).toBe(2);
+    expect(MIGRATIONS.length).toBe(3);
     for (const migration of MIGRATIONS) {
       const path = join(migrationsDir, migration.id);
       expect(existsSync(path), `missing migration: ${path}`).toBe(true);

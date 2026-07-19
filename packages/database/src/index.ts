@@ -17,6 +17,7 @@ export {
   type ReleaseRow,
   type ContributorRow,
   type JournalEntryRow,
+  type FeatureValueRow,
   type EntityType,
 } from './types.js';
 
@@ -28,6 +29,7 @@ export interface MigrationDescriptor {
 export const MIGRATIONS: readonly MigrationDescriptor[] = [
   { id: '0001_initial_schema.sql', name: 'initial_schema' },
   { id: '0002_journal_and_details.sql', name: 'journal_and_details' },
+  { id: '0003_feature_values.sql', name: 'feature_values' },
 ] as const;
 
 export * as store from './store/index.js';

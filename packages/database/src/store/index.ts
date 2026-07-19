@@ -6,3 +6,4 @@ export { upsertRelease, getRepositoryReleases, deleteReleasesByRepository } from
 export { upsertContributor, getRepositoryContributors, deleteContributorsByRepository } from './contributors.js';
 export { createDataset, getDataset, completeDataset, failDataset } from './datasets.js';
 export { insertJournalEntry, getJournalEntry, listJournalEntriesBySource } from './journalEntries.js';
+export { upsertFeatureValue, getFeatureValue, getFeatureValuesByEntity, deleteFeatureValuesByEntity } from './featureValues.js';
