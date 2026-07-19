@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Give API and worker distinct Wrangler dev ports (`8787`/`9229` vs `8788`/`9230`) so `pnpm dev` does not fail with "Address already in use" on the shared inspector port
+
 ## [0.2.0] - 2026-07-17
 
 Phase 1 stage 1.1 — Data Layer. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_GITHUB_MVP.md).

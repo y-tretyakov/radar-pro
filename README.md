@@ -442,7 +442,7 @@ pnpm dev
 # Or per-app:
 pnpm --filter @radar-pro/web dev      # http://localhost:5173
 pnpm --filter @radar-pro/api dev      # http://localhost:8787
-pnpm --filter @radar-pro/worker dev
+pnpm --filter @radar-pro/worker dev   # http://localhost:8788
 ```
 
 See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for structure and environment notes.
