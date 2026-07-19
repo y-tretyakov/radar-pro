@@ -133,6 +133,16 @@ export interface JournalEntryRow {
   recorded_at: number;
 }
 
+export interface FeatureValueRow {
+  id: string;
+  feature_name: string;
+  entity_type: string;
+  entity_id: string;
+  value: string;
+  version: string;
+  computed_at: number;
+}
+
 export type EntityType = 'repository' | 'owner' | 'issue' | 'pull_request' | 'release' | 'contributor';
 
 export const CORE_TABLES = [
@@ -145,6 +155,7 @@ export const CORE_TABLES = [
   'releases',
   'contributors',
   'journal_entries',
+  'feature_values',
 ] as const;
 
 export type CoreTableName = (typeof CORE_TABLES)[number];

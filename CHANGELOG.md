@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Phase 1 stage 1.3 — Metric Engine + Simple DAG. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_GITHUB_MVP.md).
+
+### Added
+
+- **Metric Engine (`@radar-pro/engine`):** Metric types, registry, and two built-in composite scoring metrics
+  - `health_score_v1` — overall repository health (7 weighted features: stars, releases, issues, PRs, contributors)
+  - `growth_score_v1` — growth potential (5 weighted features: releases, issues, PRs, contributors)
+  - `createDefaultMetricRegistry()` — one-shot registry with both built-in metrics
+  - Each metric declares its `dependencies` for DAG-based execution
+- **Simple DAG Executor (`@radar-pro/engine`):** DAG runtime with topological sort (Kahn's algorithm)
+  - `buildExecutionPlan()` — produces layered execution plan with cycle detection
+  - `executeDag()` — executes layers in order, feeds computed values between layers
+  - `buildAndExecuteDag()` — convenience wrapper for the full pipeline
+  - Each layer executes in parallel (independent nodes), sequential across layers
+- **Caching Layer (`@radar-pro/engine`):** Cache computed feature/metric values in D1
+  - `readCache()` — checks for fresh cached value by name, entity, and version
+  - `writeCache()` — persists computed value with configurable TTL (default 3600s)
+- **Database migration:** `0003_feature_values.sql` — `feature_values` table for persisting computed values
+  - `FeatureValueRow` type and `store.upsertFeatureValue`, `store.getFeatureValue`, etc.
+- 38 unit tests covering metric definitions, DAG topo sort, DAG execution, cache layer, cycle detection
+
 ## [0.2.1] - 2026-07-19
 
 Phase 1 stage 1.2 — Feature Engine. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_GITHUB_MVP.md) and [docs/PHASE_1_2_COMPLETION.md](docs/PHASE_1_2_COMPLETION.md).
