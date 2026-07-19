@@ -7,35 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
+## [0.2.1] - 2026-07-19
 
-- Give API and worker distinct Wrangler dev ports (`8787`/`9229` vs `8788`/`9230`) so `pnpm dev` does not fail with "Address already in use" on the shared inspector port
+Phase 1 stage 1.2 — Feature Engine. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_GITHUB_MVP.md) and [docs/PHASE_1_2_COMPLETION.md](docs/PHASE_1_2_COMPLETION.md).
 
-## [0.2.0] - 2026-07-17
+### Added
 
-Phase 1 stage 1.1 — Data Layer. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_GITHUB_MVP.md).
+- **Feature Engine (`@radar-pro/engine`):** Feature types, registry, built-in features, and sequential executor
+  - `stars` — current star count
+  - `release_frequency_30d` and `release_frequency_7d` — release counts over time windows
+  - `issue_closure_rate_7d` and `open_issue_count` — issue velocity metrics
+  - `pr_merge_rate_7d` and `open_pr_count` — PR velocity metrics
+  - `contributor_count` — unique contributor count
+  - `createDefaultRegistry()` — one-shot registry with all 8 built-in features
+  - `executeFeatures()` — sequential executor that runs features in order
+  - 14 unit tests covering registry, definitions, and executor
+
+### Changed
+
+- All workspace package versions aligned to **0.2.1**
+
+## [0.2.0] - 2026-07-19
+
+Phase 1 stage 1.1 — Data Layer. See [docs/PHASE_1_GITHUB_MVP.md](docs/PHASE_1_GITHUB_MVP.md) and [docs/PHASE_1_1_COMPLETION.md](docs/PHASE_1_1_COMPLETION.md).
 
 ### Added
 
 - **GitHub Connector:** `GitHubClient` class with Octokit-based REST client (`@radar-pro/connectors/src/github/`)
-  - Repository, owner, issues, PRs, releases, contributors, search API methods
-  - Typed responses and pagination support
 - **Journal system:** Immutable R2 journal store (`@radar-pro/connectors/src/journal/`)
-  - Write raw API responses to R2 with structured key scheme
-  - Read, list, and replay journal entries
 - **Normalizer:** GitHub API response to DB row type converter (`@radar-pro/connectors/src/normalizer/`)
-  - Owner, repository, issue, PR, release, contributor normalization
-  - Create and update variants for upsert operations
 - **Entity Store:** D1 CRUD operations (`@radar-pro/database/src/store/`)
-  - Owners, repositories, issues, PRs, releases, contributors, datasets, journal entries
-  - Search repositories with dynamic filters, sorting, and pagination
-- **Database migration:** `0002_journal_and_details.sql` — issues, pull_requests, releases, contributors, journal_entries tables
+- **Database migration:** `0002_journal_and_details.sql`
 - **Domain types:** GitHub API response types and normalized entity types in `@radar-pro/core`
 
 ### Changed
 
-- Optimized presentation slides from PNG to WebP (93% size reduction) and updated README references
-- Workspace package versions bumped to `0.2.0` (core, database, connectors, root)
+- Optimized presentation slides from PNG to WebP (93% size reduction)
+- All workspace package versions aligned to **0.2.0**
+
+### Fixed
+
+- Give API and worker distinct Wrangler dev ports (`8787`/`9229` vs `8788`/`9230`) so `pnpm dev` does not collide
 
 ## [0.1.2] - 2026-07-17
 
@@ -84,7 +96,8 @@ Phase 0 stage **0.1** — monorepo skeleton.
 - GitHub Actions CI (`.github/workflows/ci.yml`)
 - Root tooling scripts (`dev`, `build`, `typecheck`, `lint`, `test`, `format`)
 
-[Unreleased]: https://github.com/y-tretyakov/radar-pro/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/y-tretyakov/radar-pro/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/y-tretyakov/radar-pro/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/y-tretyakov/radar-pro/releases/tag/v0.2.0
 [0.1.2]: https://github.com/y-tretyakov/radar-pro/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/y-tretyakov/radar-pro/compare/v0.1.0...v0.1.1

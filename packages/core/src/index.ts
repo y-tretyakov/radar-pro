@@ -1,4 +1,4 @@
-export const CORE_PACKAGE_VERSION = '0.2.0' as const;
+export const CORE_PACKAGE_VERSION = '0.2.1' as const;
 
 export function getPackageName(): string {
   return '@radar-pro/core';

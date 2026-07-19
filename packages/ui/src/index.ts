@@ -15,7 +15,7 @@ export type { CardProps } from './card.js';
 export { AppShell } from './app-shell.js';
 export type { AppShellProps } from './app-shell.js';
 
-export const UI_PACKAGE_VERSION = '0.1.2' as const;
+export const UI_PACKAGE_VERSION = '0.2.1' as const;
 
 export function getPackageName(): string {
   return '@radar-pro/ui';

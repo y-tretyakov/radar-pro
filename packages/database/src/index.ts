@@ -1,4 +1,4 @@
-export const DATABASE_PACKAGE_VERSION = '0.2.0' as const;
+export const DATABASE_PACKAGE_VERSION = '0.2.1' as const;
 
 export function getPackageName(): string {
   return '@radar-pro/database';

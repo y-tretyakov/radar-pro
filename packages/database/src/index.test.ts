@@ -15,7 +15,7 @@ const migrationsDir = join(packageRoot, 'migrations');
 describe('@radar-pro/database', () => {
   it('exports package identity', () => {
     expect(getPackageName()).toBe('@radar-pro/database');
-    expect(DATABASE_PACKAGE_VERSION).toBe('0.2.0');
+    expect(DATABASE_PACKAGE_VERSION).toBe('0.2.1');
   });
 
   it('lists all nine core tables', () => {
